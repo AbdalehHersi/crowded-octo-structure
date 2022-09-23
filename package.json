@@ -1,7 +1,26 @@
 {
   "dependencies": {
     "console.table": "^0.10.0",
+    "dotenv": "^16.0.2",
     "inquirer": "^8.2.4",
     "mysql2": "^2.3.3"
-  }
+  },
+  "name": "week-12-challenge",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AbdalehHersi/crowded-octo-structure.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AbdalehHersi/crowded-octo-structure/issues"
+  },
+  "homepage": "https://github.com/AbdalehHersi/crowded-octo-structure#readme"
 }
