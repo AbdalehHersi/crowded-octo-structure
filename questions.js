@@ -159,11 +159,11 @@ const addEmployee = () => {
                             },
                             (err, res) => {
                                 if (err) throw err;
-                                console.log(`Added ${data.employeeFirstName} ${data.employeeLastName} to the database`);
+                                // console.log(`Added ${data.employeeFirstName} ${data.employeeLastName} to the database`);
                             })
                     })
                 } else {
-                    db.query(`SELECT * FROM employee WHERE employee.first_name = '${data.employeeManager}'`, (err, res) => {
+                    db.query(`SELECT * FROM employee WHERE employee.first_name = ? AND employee.last_name = ?;`, data.employeeManager.split(" "), (err, res) => {
                         if (err) throw err;
                         console.table(res);
                     })
@@ -209,10 +209,12 @@ const addRole = () => {
                             department_id: depID
                         }, (err, res) => {
                             if (err) throw err;
-                            console.log(`Added ${data.roleDep} to the database.`)
-                            menu();
                         })
                 })
+            })
+            .then(() => {
+                console.log("Added role to the database.");
+                menu();
             })
     })
 }
@@ -232,7 +234,34 @@ const updateEmployee = () => {
             let employeeName = `${res[i].first_name} ${res[i].last_name}`
             employeeArr.push(employeeName);
         }
-        return
+        return inquire.prompt([
+            {
+                type: "list",
+                message: "Which employee do you want to update",
+                name: "employee",
+                choices: employeeArr
+            },
+            {
+                type: "list",
+                message: "What will be the employee's new role? ",
+                name: "role",
+                choices: roleArr
+            },
+        ])
+        .then((data) => {
+            db.query(`SELECT id FROM roles WHERE roles.title = ?;`, data.role, (err, res) => {
+                roleID = res[0].id;
+                db.query(`SELECT id FROM employee WHERE employee.first_name = ? AND employee.last_name = ?;`, data.employee.split(" "), (err, res) => {
+                    db.query(`UPDATE employee SET role_id = ? WHERE id =?;`, [roleID, res[0].id]), (err, res) => {
+                        if (err) throw err;
+                    }
+                })
+            })
+        })
+        .then(() => {
+            console.log("Employee records updated.")
+            menu();
+        })
     })
 }
 
