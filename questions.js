@@ -324,7 +324,7 @@ const viewByDepartment = () => {
 }
 
 const viewBudget = () => {
-    db.query(`SELECT department.id, department_name, SUM(roles.salary) AS total_salary FROM department JOIN roles on department.id = roles.department_id GROUP BY department.department_name;`, (err, res) => {
+    db.query(`SELECT *, COUNT(roles.salary) AS total_salary FROM department JOIN roles on department.id = roles.department_id GROUP BY roles.salary;`, (err, res) => {
         if (err) throw err;        
         console.table(res);
         menu()
