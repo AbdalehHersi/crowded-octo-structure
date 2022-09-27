@@ -12,6 +12,8 @@ const menu = () => {
                 'View all employees',
                 'View all departments',
                 'View all roles',
+                'View employees by manager',
+                'View employees by department',
                 'Add an employee',
                 'Add a department',
                 'Add a role',
@@ -26,9 +28,15 @@ const menu = () => {
                 case "View all departments":
                     viewDepartments();
                     break;
+
                 case "View all roles":
                     viewRole();
                     break;
+                case "View employees by manager":
+                    viewByManager();
+                    break;
+                case "View employees by department":
+                    viewByDepartment();
                 case "Add an employee":
                     addEmployee();
                     break;
@@ -272,5 +280,21 @@ const updateEmployee = () => {
             })
     })
 }
+
+const viewByManager = () => {
+    db.query(`SELECT employee.id, employee.first_name, employee.last_name, roles.title AS job_title,
+    department.department_name,
+    roles.salary,
+    employee.manager_id FROM employee  JOIN roles ON employee.role_id = roles.id
+    JOIN department ON roles.department_id = department.id
+    WHERE manager_id IS NOT NULL
+    ORDER BY employee.id;`, (err, res) => {
+        if (err) throw err;
+        console.table(res);
+        menu();
+    })
+}
+
+
 
 module.exports = { menu };
