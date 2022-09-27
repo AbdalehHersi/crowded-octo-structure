@@ -17,7 +17,8 @@ const menu = () => {
                 'Add an employee',
                 'Add a department',
                 'Add a role',
-                'Update an employee']
+                'Update an employee',
+                'View budget of departments']
         }
     ])
         .then((data) => {
@@ -48,7 +49,10 @@ const menu = () => {
                     addDepartment();
                     break;
                 case "Update an employee":
-                    updateEmployee()
+                    updateEmployee();
+                    break;
+                case "View budget of departments":
+                    viewBudget();
                     break;
                 default:
                     console.log("Switch case default")
@@ -288,7 +292,17 @@ const viewByManager = () => {
     roles.salary,
     employee.manager_id FROM employee  JOIN roles ON employee.role_id = roles.id
     JOIN department ON roles.department_id = department.id
-    WHERE manager_id IS NOT NULL
+    WHERE manager_id IS NULL
+    ORDER BY employee.id;`, (err, res) => {
+        if (err) throw err;
+        console.table(res);
+    })
+    db.query(`SELECT employee.id, employee.first_name, employee.last_name, roles.title AS job_title,
+    department.department_name,
+    roles.salary,
+    employee.manager_id FROM employee  JOIN roles ON employee.role_id = roles.id
+    JOIN department ON roles.department_id = department.id
+    WHERE manager_id IS  NOT NULL
     ORDER BY employee.id;`, (err, res) => {
         if (err) throw err;
         console.table(res);
@@ -306,6 +320,14 @@ const viewByDepartment = () => {
         if (err) throw err;
         console.table(res);
         menu();
+    })
+}
+
+const viewBudget = () => {
+    db.query(`SELECT department.id, department_name, SUM(roles.salary) AS total_salary FROM department JOIN roles on department.id = roles.department_id GROUP BY department.department_name;`, (err, res) => {
+        if (err) throw err;        
+        console.table(res);
+        menu()
     })
 }
 
