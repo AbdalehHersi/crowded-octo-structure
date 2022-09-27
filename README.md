@@ -24,7 +24,7 @@ To run the program all you need to do is enter `node server.js` You will be pres
 
 For a more in depth guide you can view this walkthrough.
 
-![](.Untitled.png)
+![](./Untitled.png)
 
 # Challenge Acceptance Criteria
 ```
