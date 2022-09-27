@@ -37,6 +37,7 @@ const menu = () => {
                     break;
                 case "View employees by department":
                     viewByDepartment();
+                    break;
                 case "Add an employee":
                     addEmployee();
                     break;
@@ -295,6 +296,17 @@ const viewByManager = () => {
     })
 }
 
-
+const viewByDepartment = () => {
+    db.query(`SELECT employee.id, employee.first_name, employee.last_name, roles.title AS job_title,
+    department.department_name,
+    roles.salary,
+    employee.manager_id FROM employee  JOIN roles ON employee.role_id = roles.id
+    JOIN department ON roles.department_id = department.id
+    ORDER BY department.department_name;`, (err, res) => {
+        if (err) throw err;
+        console.table(res);
+        menu();
+    })
+}
 
 module.exports = { menu };
