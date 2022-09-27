@@ -61,18 +61,11 @@ const addDepartment = () => {
                     department_name: data.name
                 }, (err, res) => {
                     if (err) throw err;
-                    console.table(res);
                 })
-
-
-            db.query("SELECT * FROM department", (err, res) => {
-                if (err) throw err;
-                console.table(res);
-                menu();
-            })
-
-
-
+        })
+        .then(() => {
+            console.log("Added department to database");
+            menu();
         })
 }
 
@@ -110,7 +103,6 @@ const viewDepartments = () => {
 
 const addEmployee = () => {
     let rolesArr = []
-    let managerArr = [];
     let Name = [];
     db.query(`SELECT * FROM employee`, (err, res) => {
         for (let i = 0; i < res.length; i++) {
