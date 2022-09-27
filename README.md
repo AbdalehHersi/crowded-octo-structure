@@ -20,11 +20,13 @@ Clone the repository code to a location of your choice using the command-line in
 
 To run the program all you need to do is enter `node server.js` You will be presented with a menu where you can choose from a variety of options. 
 
-![](.Untitled.png)
+![](./Untitled2.png)
+
+![](./Untitled.png)
 
 For a more in depth guide you can view this walkthrough.
 
-![](./Untitled.png)
+
 
 # Challenge Acceptance Criteria
 ```
