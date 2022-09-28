@@ -27,6 +27,7 @@ To run the program all you need to do is enter `node server.js` You will be pres
 For a more in depth guide you can view this walkthrough.
 
 [Video](https://drive.google.com/file/d/1aNlCUJGvRuVX6sXgeQ2i_Y8z7gnVfnhN/view)
+
 [Backup Video](https://youtu.be/NUduR6wF8DM)
 
 # Challenge Acceptance Criteria
